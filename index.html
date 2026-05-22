@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matcha Spread Premium - Información Accesible</title>
+    <style>
+        /* Variables de color de alto contraste (WCAG AAA) y temática Matcha */
+        :root {
+            --primary-color: #1a4a1a; /* Verde oscuro para contraste altísimo */
+            --secondary-color: #e8f5e9; /* Fondo verde muy claro para no deslumbrar */
+            --text-color: #000000; /* Negro para máximo contraste en el texto */
+            --focus-color: #005cc5; /* Azul claro visible para el anillo de foco */
+            --warning-color: #8b0000; /* Rojo oscuro para las alertas */
+            --bg-color: #ffffff; /* Blanco puro para secciones principales */
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            font-size: 112.5%; /* 18px base para mejorar legibilidad por defecto */
+        }
+
+        /* Enlace para saltar al contenido (Oculto visualmente hasta que recibe foco) */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            z-index: 1000;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .skip-link:focus {
+            top: 0;
+            outline: 4px solid var(--focus-color);
+        }
+
+        /* Clase utilitaria para ocultar elementos visualmente pero mantenerlos para lectores de pantalla */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 1.5rem 1rem;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        main {
+            padding: 1rem;
+            max-width: 600px; /* Mobile-first, restringido para que no se estire demasiado en desktop */
+            margin: 0 auto;
+            background-color: var(--bg-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        section {
+            margin-bottom: 2.5rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            font-size: 1.5rem;
+            margin-top: 0;
+        }
+
+        /* Contenedor del botón flotante/sticky de lectura */
+        .tts-container {
+            position: sticky;
+            top: 0;
+            background-color: var(--bg-color);
+            padding: 1rem 0;
+            z-index: 100;
+            border-bottom: 2px solid #ccc;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        /* Botón accesible (mínimo 48x48px) */
+        button {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border: 2px solid transparent;
+            padding: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            min-height: 54px; /* Supera el mínimo de WCAG 2.1 (48px) */
+            min-width: 54px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            max-width: 320px;
+            transition: background-color 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #123312;
+        }
+
+        button:focus {
+            outline: 4px solid var(--focus-color);
+            outline-offset: 4px;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        ul {
+            padding-left: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Alerta de alérgenos de alto contraste */
+        .allergen-warning {
+            background-color: #fff0f0;
+            border-left: 6px solid var(--warning-color);
+            padding: 1rem;
+            margin-top: 1.5rem;
+            font-weight: bold;
+            color: var(--warning-color);
+        }
+
+        /* Estilos de tabla accesibles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            border: 1px solid #767676; /* Gris oscuro para contraste > 3:1 con el fondo */
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            background-color: var(--primary-color);
+            color: #ffffff;
+        }
+
+        /* Iconos SVG */
+        .icon {
+            width: 28px;
+            height: 28px;
+            fill: currentColor;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Enlace de salto para navegación rápida por teclado -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <header>
+        <h1>Matcha Spread Premium</h1>
+        <p>Información Accesible del Producto</p>
+    </header>
+
+    <main id="main-content">
+        <!-- Control de Voz (Text-to-Speech) -->
+        <div class="tts-container">
+            <button id="tts-btn" aria-label="Escuchar la información del producto" aria-pressed="false">
+                <!-- Icono de Play -->
+                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" id="play-icon">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+                <!-- Icono de Pause (oculto por defecto) -->
+                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" id="pause-icon" style="display: none;">
+                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                </svg>
+                <span id="tts-text">Leer Información en Voz Alta</span>
+            </button>
+            <!-- Región en vivo para anunciar el estado del lector de voz sin romper el foco -->
+            <div id="tts-status" aria-live="polite" class="sr-only">Lector de voz desactivado.</div>
+        </div>
+
+        <!-- Secciones de Contenido usando aria-labelledby para relacionar el h2 con la sección -->
+        <section id="description" aria-labelledby="desc-title">
+            <h2 id="desc-title">Descripción</h2>
+            <p>Disfruta de nuestra crema untable de té matcha premium. Una combinación perfecta entre el sabor umami del auténtico matcha japonés y la dulzura del chocolate blanco vegano. Ideal para untar en pan, galletas o añadir a tus postres favoritos.</p>
+        </section>
+
+        <section id="ingredients" aria-labelledby="ing-title">
+            <h2 id="ing-title">Ingredientes</h2>
+            <ul>
+                <li>Polvo de té matcha orgánico de grado ceremonial.</li>
+                <li>Manteca de cacao vegana.</li>
+                <li>Azúcar de caña orgánico.</li>
+                <li>Aceite de coco prensado en frío.</li>
+                <li>Leche de avena en polvo.</li>
+                <li>Extracto de vainilla natural.</li>
+            </ul>
+            
+            <!-- Advertencia de alérgenos usando role="alert" -->
+            <div class="allergen-warning" role="alert">
+                <strong>Advertencia de alérgenos:</strong> Puede contener trazas de nueces, soja y almendras. Producido en instalaciones que procesan frutos secos.
+            </div>
+        </section>
+
+        <section id="nutrition" aria-labelledby="nutri-title">
+            <h2 id="nutri-title">Información Nutricional</h2>
+            <p>Porción: 1 cucharada (15 gramos).</p>
+            <table>
+                <caption class="sr-only">Tabla de información nutricional por porción de 15 gramos</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Nutriente</th>
+                        <th scope="col">Cantidad por porción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Calorías</td>
+                        <td>85 kcal</td>
+                    </tr>
+                    <tr>
+                        <td>Grasas Totales</td>
+                        <td>6 g</td>
+                    </tr>
+                    <tr>
+                        <td>Grasas Saturadas</td>
+                        <td>4 g</td>
+                    </tr>
+                    <tr>
+                        <td>Carbohidratos</td>
+                        <td>8 g</td>
+                    </tr>
+                    <tr>
+                        <td>Azúcares Añadidos</td>
+                        <td>6 g</td>
+                    </tr>
+                    <tr>
+                        <td>Proteínas</td>
+                        <td>1 g</td>
+                    </tr>
+                    <tr>
+                        <td>Sodio</td>
+                        <td>5 mg</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>Envasado con cuidado para ti y para el planeta.</p>
+        <p>Contacto: info@matchaspread.com</p>
+    </footer>
+
+    <!-- Script de Funcionalidad Web Speech API -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ttsBtn = document.getElementById('tts-btn');
+            const playIcon = document.getElementById('play-icon');
+            const pauseIcon = document.getElementById('pause-icon');
+            const ttsText = document.getElementById('tts-text');
+            const ttsStatus = document.getElementById('tts-status');
+            
+            let isPlaying = false;
+            let synth = window.speechSynthesis;
+            let currentUtterance = null;
+
+            // Función para extraer y formatear el texto a leer
+            const prepareTextToRead = () => {
+                const desc = document.querySelector('#description p').innerText;
+                const ingredientsNodes = document.querySelectorAll('#ingredients li');
+                const ingredientsText = Array.from(ingredientsNodes).map(li => li.innerText).join(', ');
+                const allergens = document.querySelector('.allergen-warning').innerText;
+                
+                // Formateamos la información nutricional como un resumen amigable hablado, en lugar de leer una tabla html celda por celda
+                const nutritionText = "Información nutricional por porción de una cucharada de 15 gramos: 85 calorías, 6 gramos de grasas totales, 8 gramos de carbohidratos y 1 gramo de proteína.";
+
+                return `Matcha Spread Premium. 
+                        Descripción del producto: ${desc}. 
+                        Lista de Ingredientes: ${ingredientsText}. 
+                        ${allergens}. 
+                        ${nutritionText}.
+                        Fin de la información.`;
+            };
+
+            const toggleTTS = () => {
+                if (isPlaying) {
+                    // Si está leyendo, lo detenemos completamente
+                    synth.cancel(); 
+                    isPlaying = false;
+                    updateUIState();
+                } else {
+                    // Si no está leyendo, iniciamos la lectura
+                    const text = prepareTextToRead();
+                    currentUtterance = new SpeechSynthesisUtterance(text);
+                    
+                    // Configuración de la voz (Ajustes de accesibilidad recomendados)
+                    currentUtterance.lang = 'es-ES'; // Idioma español
+                    currentUtterance.rate = 0.9; // Velocidad ligeramente reducida para mejor comprensión (1 es normal)
+                    currentUtterance.pitch = 1; // Tono normal
+
+                    // Evento al terminar de leer
+                    currentUtterance.onend = () => {
+                        isPlaying = false;
+                        updateUIState();
+                    };
+
+                    // Manejo de errores
+                    currentUtterance.onerror = (e) => {
+                        console.error("Speech Synthesis Error:", e);
+                        isPlaying = false;
+                        updateUIState();
+                        ttsStatus.innerText = "Hubo un error al intentar leer el texto en voz alta.";
+                    };
+
+                    synth.speak(currentUtterance);
+                    isPlaying = true;
+                    updateUIState();
+                }
+            };
+
+            // Actualiza la UI (íconos, ARIA y estado invisible en vivo) dependiendo de si lee o no
+            const updateUIState = () => {
+                if (isPlaying) {
+                    playIcon.style.display = 'none';
+                    pauseIcon.style.display = 'block';
+                    ttsText.innerText = 'Detener Lectura';
+                    ttsBtn.setAttribute('aria-pressed', 'true');
+                    ttsBtn.setAttribute('aria-label', 'Detener la lectura de la información del producto');
+                    ttsStatus.innerText = "Lector de voz activado. Leyendo información.";
+                } else {
+                    playIcon.style.display = 'block';
+                    pauseIcon.style.display = 'none';
+                    ttsText.innerText = 'Leer Información en Voz Alta';
+                    ttsBtn.setAttribute('aria-pressed', 'false');
+                    ttsBtn.setAttribute('aria-label', 'Escuchar la información del producto en voz alta');
+                    ttsStatus.innerText = "Lector de voz desactivado.";
+                }
+            };
+
+            ttsBtn.addEventListener('click', toggleTTS);
+
+            // Detener la lectura si el usuario abandona la página/pestaña
+            window.addEventListener('beforeunload', () => {
+                if (synth.speaking) {
+                    synth.cancel();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
